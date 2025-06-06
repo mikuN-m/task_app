@@ -1,14 +1,16 @@
-let createError = require('http-errors');
-let express = require('express');
-let path = require('path');
-let cookieParser = require('cookie-parser');
-let logger = require('morgan');
+const createError = require('http-errors');
+const express = require('express');
+const path = require('path');
+const cookieParser = require('cookie-parser');
+const logger = require('morgan');
+const session = require('express-session');
 
-let indexRouter = require('./routes/index');
-let usersRouter = require('./routes/users');
-let taskRouter = require('./routes/task');
+const indexRouter = require('./routes/index');
+const usersRouter = require('./routes/users');
+const taskRouter = require('./routes/task');
+const loginRouter = require('./routes/login');
 
-let app = express();
+const app = express();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -20,9 +22,39 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+
+//sessionの管理
+app.use(session({
+  secret: 'your_secret_key',
+  resave: false,
+  saveUninitialized: true
+}));
+
+app.use((req,res,next) => {
+
+  const userName = req.session.userName;
+
+  if (userName == undefined) {
+    res.locals.login = false;
+    res.locals.userName ='ゲスト';
+    console.log(res.locals.userName);
+    
+    
+  } else {
+    res.locals.login = true;
+    res.locals.userName = 'd';
+    
+    console.log(res.locals.userName);
+  }
+
+  next();
+});
+
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/task', taskRouter);
+app.use('./login',loginRouter)
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

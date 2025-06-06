@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="https://unpkg.com/ress/dist/ress.min.css">
+  <link rel="stylesheet" href="stylesheets/style.css">
+</head>
+<body>
+  
+  <div id="header">
+    <h1>タスク管理アプリ</h1>
+
+    <div>
+      <% if (locals.login) { %>
+        <p><%= locals.userName %>さん</p>
+        <p><a href="/logout">logout</a></p>
+      <% } else { %>
+        <div><%= locals.userName %>さん</p>
+        <p><a href="/login">login</a></p>
+        <p><a href="/login">新規登録</a></p>
+      <% } %>
+    </div>
+  </div>
+  
+</body>
+</html>
