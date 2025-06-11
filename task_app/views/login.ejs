@@ -4,20 +4,32 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
+  <link rel="stylesheet" href="https://unpkg.com/ress/dist/ress.min.css">
+  <link rel="stylesheet" href="stylesheets/style.css">
 </head>
 <body>
 
   <h1>ログイン・新規登録</h1>
 
   <div id="login">
-    <form method="post" action="/login">
-      
+    <h3>login</h3>
+    <p><%= loginError %></p>
+    <form method="post" action="/login/login-post">
+      <input type="text" name="userName" required>
+      <input type="number" name="userId" required>
+      <input type="submit" value="送信">
     </form>
   </div>
 
-  <div id="sinein">
-
+  <div id="signIn">
+    <h3>signIn</h3>
+    <p><%= signInError %></p>
+    <form method="post" action="/login/signIn-post">
+      <input type="text" name="userName" required>
+      <input type="number" name="userId" required>
+      <input type="submit" value="送信">
+    </form>
   </div>
-  
+
 </body>
 </html>
