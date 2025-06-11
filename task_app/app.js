@@ -39,14 +39,11 @@ app.use((req,res,next) => {
   if (req.session.loginName == undefined) {
     res.locals.login = false;
     res.locals.loginName ='ゲスト';
-    console.log(res.locals.loginName);
     
     
   } else {
     res.locals.login = true;
     res.locals.loginName = loginName;
-    
-    console.log(res.locals.loginName);
   }
 
   //ユーザ、タスクオブジェクト
