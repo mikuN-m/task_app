@@ -35,24 +35,19 @@ app.use(session({
 app.use((req,res,next) => {
 
   //ログイン管理
-
   if (req.session.loginName == undefined) {
     res.locals.login = false;
     res.locals.loginName ='ゲスト';
-    
+    res.locals.id = '';
+    res.locals.capacity = '';
     
   } else {
     res.locals.login = true;
-    res.locals.loginName = loginName;
+    res.locals.loginName = req.session.loginName;
+    res.locals.id = req.session.userId;
+    res.locals.capacity = req.session.capacity;
   }
 
-  //ユーザ、タスクオブジェクト
-  if (!req.session.userObj) {
-    req.session.userObj = [];
-  }
-  if (!req.session.taskObj) {
-    req.session.taskObj = [];
-  }
 
   next();
 });

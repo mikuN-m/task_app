@@ -9,13 +9,19 @@
 </head>
 <body>
 
-  <header>
-    <h1>タスク</h1>
-  </header>
+  <div>
+    <%- include('./header') %>
+  </div>
 
   <main>
-    <a href="task-add">追加</a>
-    <a href="task-delete">削除</a>
+
+    <h1>タスク</h1>
+
+    <p><%= errMsg %></p>
+
+    <a href="/task/task-add">追加</a>
+    <a href="/task/task-delete">削除</a>
+
     
     <!-- 一覧 -->
     <div>
