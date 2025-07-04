@@ -3,9 +3,11 @@ const router = express.Router();
 const db = require('../models/dbModel');
 
 router.get('/',(req,res)=>{
+  const redirectTo = req.query.redirect || '/';
   res.render('login',{
     loginError: null,
-    signInError: null
+    signInError: null,
+    redirect: redirectTo
   });
 });
 
@@ -22,7 +24,8 @@ router.post('/login-post', (req, res) => {
     req.session.userId = userId.id;
     req.session.loginName = userName;
     req.session.save(() => {
-      res.redirect('/');
+      const redirectTo = req.body.redirect || '/';
+      res.redirect(redirectTo);
     });
   } else {
     res.render('login',{
@@ -51,7 +54,8 @@ router.post('/signIn-post', (req,res) => {
     req.session.loginName = userName;
     req.session.userId = userId.id;
     req.session.save(() => {
-      res.redirect('/');
+      const redirectTo = req.body.redirect || '/';
+      res.redirect(redirectTo);
     });
   }
 });

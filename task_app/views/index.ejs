@@ -5,28 +5,35 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
   <link rel="stylesheet" href="https://unpkg.com/ress/dist/ress.min.css">
-  <link rel="stylesheet" href="stylesheets/style.css">
+  <link rel="stylesheet" href="stylesheets/main.css">
 </head>
 <body>
 
-  <div>
-    <%- include('./header') %>
-  </div>
 
   <main>
-
     <% if (locals.login) { %>
-      <p>体調入力</p>
+
+      <!-- 体調入力画面 -->
+      <div class="main-init">
+
+        <div id="">
+
+        </div>
+
+      </div>
+
+      <!-- <p>体調入力</p>
       <form method="post" action="/capacity">
         <output id="capaOutput">5</output><br>
         <input type="range" id="capacity" name="capacity" min="1" max="10" value="5" oninput="capaOutput.value = capacity.value">
         <input type="submit" value="決定">
       </form>
-    <% } %>
-
-    <div>
+      <div>
       <p><a href="/task">タスク</a></p>
-    </div>
+      </div> -->
+
+
+    <% } %>
   </main>
   
 </body>

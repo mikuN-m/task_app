@@ -9,9 +9,7 @@
 </head>
 <body>
 
-  <div>
-    <%- include('./header') %>
-  </div>
+  <%- include('./header') %>
 
   <main>
 
@@ -19,15 +17,117 @@
 
     <p><%= errMsg %></p>
 
-    <a href="/task/task-add">追加</a>
-    <a href="/task/task-delete">削除</a>
+    <% if (locals.login) { %>
+      <button id="js-add-btn">追加</button>
+      <button id="js-delete-btn">削除</button>
 
+      
+      <!-- 一覧 -->
+      <div id="task-all">
+        <% if (task && task.length > 0) { %>
+          <% for(let i = 0; i < task.length; i++) { %>
+
+            <div class="all-task-box">
+              <h3><%= task[i].taskName %></h3>
+              <p>カテゴリー: <%= task[i].category %></p>
+              <p>期限: <%= task[i].dueDate %>
+                <% if (task[i].dueTime) { %> <%= task[i].dueTime %> <% } %>
+              </p>
+              <p>疲労度: <%= task[i].fatigueLevel %></p>
+              <% if (task[i].memo) { %>
+                <p>メモ: <%= task[i].memo %></p>
+              <% } %>
+            </div>
+
+          <% } %>
+        <% } else { %>
+
+          <p>タスクがありません。</p>
+
+        <% } %>
+      </div>
+
+
+
+
+      <!-- 削除 -->
+      <div id="task-delete">
+        <button id="task-delete-hidden">取り消し</button>
+        <% if (task && task.length > 0) { %>
+          <form method="post" action="/task/task-delete">
+            <% for(let i = 0; i < task.length; i++) { %>
+
+              <div class="all-task-box">
+                  <input type="checkbox" name="selectTask[]" value="<%= task[i].id %>">
+                  <h3><%= task[i].taskName %></h3>
+                  <p>カテゴリー: <%= task[i].category %></p>
+                  <p>期限: <%= task[i].dueDate %>
+                    <% if (task[i].dueTime) { %> <%= task[i].dueTime %> <% } %>
+                  </p>
+                  <p>疲労度: <%= task[i].fatigueLevel %></p>
+                  <% if (task[i].memo) { %>
+                    <p>メモ: <%= task[i].memo %></p>
+                  <% } %>
+              </div>
+
+            <% } %>
+            <input type="submit" value="決定">
+          </form>
+        <% } else { %>
+
+          <p>タスクがありません。</p>
+
+        <% } %>
+      </div>
     
-    <!-- 一覧 -->
-    <div>
+    <% } %>
 
+
+
+    <!-- タスク追加画面 -->
+    <div id="js-task-add-container">
+      <div id="task-add">
+        <div id="task-add-inner">
+
+          <button id="js-task-hidden">戻る</button>
+
+          <form method="post" action="/task/task-add">
+            <label for="taskName">タスク名</label>
+            <input type="text" name="taskName" required><br>
+
+            <label for="category">カテゴリー</label>
+            <select id="category" name="category" required>
+              <option value="">-- 選択してください --</option>
+              <option value="work">仕事</option>
+              <option value="study">勉強</option>
+              <option value="house">家事</option>
+              <option value="health">健康</option>
+              <option value="other">その他</option>
+            </select><br>
+
+            <label for="dueDate">期限（日付）</label>
+            <input type="date" name="dueDate" required><br>
+
+            <label for="dueTime">期限（時間）<span style="font-size: 0.9em;">（任意）</span></label>
+            <input type="time" name="dueTime"><br>
+
+            <label for="fatigueLevel">疲労度</label>
+            <input type="range" name="fatigueLevel" id="fatigueRange" min="1" max="3" value="1" oninput="fatigueOutput.value = fatigueRange.value">
+            <output id="fatigueOutput">1</output><br>
+
+            <label for="memo">メモ</label>
+            <textarea name="memo"></textarea><br>
+
+            <input type="submit" value="決定">
+
+          </form>
+
+        </div>
+      </div>
     </div>
+
   </main>
   
+  <script src="javascripts/main.js"></script>
 </body>
 </html>

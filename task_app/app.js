@@ -4,6 +4,7 @@ const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const session = require('express-session');
+const sassMiddleware = require('sass-middleware');
 
 
 const indexRouter = require('./routes/index');
@@ -17,9 +18,22 @@ const app = express();
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
+app.use(
+  sassMiddleware({
+    /* ソースのSCSSファイルがある場所 */
+    src: path.join(__dirname, 'public', 'stylesheets'),
+    /* コンパイルされたCSSファイルの出力先 */
+    dest: path.join(__dirname, 'public', 'stylesheets'),
+    /* 出力ファイルのURLパス */
+    prefix: '/stylesheets',
+    indentedSyntax: false, // trueだと.sass、falseだと.scss
+    sourceMap: true,
+  })
+);
+
 app.use(logger('dev'));
 app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
@@ -47,7 +61,6 @@ app.use((req,res,next) => {
     res.locals.id = req.session.userId;
     res.locals.capacity = req.session.capacity;
   }
-
 
   next();
 });

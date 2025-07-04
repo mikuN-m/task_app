@@ -5,31 +5,51 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
   <link rel="stylesheet" href="https://unpkg.com/ress/dist/ress.min.css">
-  <link rel="stylesheet" href="stylesheets/style.css">
+  <link rel="stylesheet" href="stylesheets/main.css">
 </head>
 <body>
 
-  <h1>ログイン・新規登録</h1>
+  <div id="login-container">
+    <div id="login-box">
+      <h1>welcome</h1>
+    
+      <div id="login">
+        <h3>login</h3>
+        <p><%= loginError %></p>
+        <form class="form-box" method="post" action="/login/login-post">
+          <label for="userName">お名前</label><br>
+          <input type="text" class="input" name="userName" required><br>
 
-  <div id="login">
-    <h3>login</h3>
-    <p><%= loginError %></p>
-    <form method="post" action="/login/login-post">
-      <input type="text" name="userName" required>
-      <input type="text" name="userPas" required>
-      <input type="submit" value="送信">
-    </form>
+          <label for="userPas">パスワード</label><br>
+          <input type="text" class="input" name="userPas" required>
+
+          <input type="hidden" name="redirect" value="<%= redirect %>">
+          <input type="submit" class="submit" value="送信">
+        </form>
+
+        <p class="toggle-login"><button id="toggle-signIn">新規登録はこちら</button></p>
+
+      </div>
+    
+      <div id="signIn">
+        <h3>signIn</h3>
+        <p><%= signInError %></p>
+        <form method="post" action="/login/signIn-post">
+          <label for="userName">お名前</label><br>
+          <input type="text" id="userName" class="input" name="userName" required><br>
+          <label for="userPas">パスワード</label><br>
+          <input type="text" id="userPas" class="input" name="userPas" required>
+          <input type="hidden" name="redirect" value="<%= redirect %>">
+          <input type="submit" class="submit" value="送信">
+        </form>
+
+        <p class="toggle-login"><button id="toggle-login">ログインはこちら</button></p>
+
+      </div>
+      
+    </div>
   </div>
 
-  <div id="signIn">
-    <h3>signIn</h3>
-    <p><%= signInError %></p>
-    <form method="post" action="/login/signIn-post">
-      <input type="text" name="userName" required>
-      <input type="text" name="userPas" required>
-      <input type="submit" value="送信">
-    </form>
-  </div>
-
+  <script src="javascripts/main.js"></script>
 </body>
 </html>

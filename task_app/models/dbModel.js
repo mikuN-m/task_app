@@ -23,6 +23,19 @@ db.prepare(`
   )
 `).run();
 
+db.prepare(`
+  CREATE TABLE IF NOT EXISTS tasks (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    userId INTEGER NOT NULL,
+    fatigueLevel INTEGER NOT NULL,
+    taskName TEXT NOT NULL,
+    category TEXT NOT NULL,
+    dueDate TEXT NOT NULL,
+    dueTime TEXT,
+    memo TEXT
+  )
+`).run();
+
 module.exports = db;
 
 
