@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="https://unpkg.com/ress/dist/ress.min.css">
+  <link rel="stylesheet" href="stylesheets/main.css">
+</head>
+<body>
+    <div class="float-up">
+      <div id="main-init">
+  
+        <div id="init-wrap">
+          <h4>こんにちは、今日のあなたについて教えてください</h4>
+  
+          <form class="form-box" method="post" action="/capacity/capacity">
+  
+            <p>健康状態</p>
+            <div class="condition-box">
+              <div>
+                <input type="radio" id="physical-condition1-5" name="physical-condition1" value="5">
+                <label for="physical-condition1-5" class="radio-img">
+                  <img src="images/condition5.png" alt="Option 5">
+                </label>
+              </div>
+  
+              <div>
+                <input type="radio" id="physical-condition1-4" name="physical-condition1" value="4">
+                <label for="physical-condition1-4" class="radio-img">
+                  <img src="images/condition4.png" alt="Option 4">
+                </label>
+              </div>
+  
+              <div>
+                <input type="radio" id="physical-condition1-3" name="physical-condition1" value="3">
+                <label for="physical-condition1-3" class="radio-img">
+                  <img src="images/condition3.png" alt="Option 3">
+                </label>
+              </div>
+  
+              <div>
+                <input type="radio" id="physical-condition1-2" name="physical-condition1" value="2">
+                <label for="physical-condition1-2" class="radio-img">
+                  <img src="images/condition2.png" alt="Option 2">
+                </label>
+              </div>
+  
+              <div>
+                <input type="radio" id="physical-condition1-1" name="physical-condition1" value="1">
+                <label for="physical-condition1-1" class="radio-img">
+                  <img src="images/condition1.png" alt="Option 1">
+                </label>
+              </div>
+            </div>
+  
+            <p>睡眠</p>
+            <div class="condition-box">
+              <div>
+                <input type="radio" id="physical-condition2-5" name="physical-condition2" value="5">
+                <label for="physical-condition2-5" class="radio-img">
+                  <img src="images/condition5.png" alt="Option 5">
+                </label>
+              </div>
+  
+              <div>
+                <input type="radio" id="physical-condition2-4" name="physical-condition2" value="4">
+                <label for="physical-condition2-4" class="radio-img">
+                  <img src="images/condition4.png" alt="Option 4">
+                </label>
+              </div>
+  
+              <div>
+                <input type="radio" id="physical-condition2-3" name="physical-condition2" value="3">
+                <label for="physical-condition2-3" class="radio-img">
+                  <img src="images/condition3.png" alt="Option 3">
+                </label>
+              </div>
+  
+              <div>
+                <input type="radio" id="physical-condition2-2" name="physical-condition2" value="2">
+                <label for="physical-condition2-2" class="radio-img">
+                  <img src="images/condition2.png" alt="Option 2">
+                </label>
+              </div>
+  
+              <div>
+                <input type="radio" id="physical-condition2-1" name="physical-condition2" value="1">
+                <label for="physical-condition2-1" class="radio-img">
+                  <img src="images/condition1.png" alt="Option 1">
+                </label>
+              </div>
+            </div>
+  
+            <p>気分</p>
+            <div class="condition-box">
+              <div>
+                <input type="radio" id="physical-condition3-5" name="physical-condition3" value="5">
+                <label for="physical-condition3-5" class="radio-img">
+                  <img src="images/condition5.png" alt="Option 5">
+                </label>
+              </div>
+  
+              <div>
+                <input type="radio" id="physical-condition3-4" name="physical-condition3" value="4">
+                <label for="physical-condition3-4" class="radio-img">
+                  <img src="images/condition4.png" alt="Option 4">
+                </label>
+              </div>
+  
+              <div>
+                <input type="radio" id="physical-condition3-3" name="physical-condition3" value="3">
+                <label for="physical-condition3-3" class="radio-img">
+                  <img src="images/condition3.png" alt="Option 3">
+                </label>
+              </div>
+  
+              <div>
+                <input type="radio" id="physical-condition3-2" name="physical-condition3" value="2">
+                <label for="physical-condition3-2" class="radio-img">
+                  <img src="images/condition2.png" alt="Option 2">
+                </label>
+              </div>
+  
+              <div>
+                <input type="radio" id="physical-condition3-1" name="physical-condition3" value="1">
+                <label for="physical-condition3-1" class="radio-img">
+                  <img src="images/condition1.png" alt="Option 1">
+                </label>
+              </div>
+            </div>
+            
+            <input type="hidden" name="redirect" value="<%= redirect %>">
+  
+            <input type="submit" class="submit" value="送信">
+          </form>
+        </div>
+      </div>
+    </div>
+</body>
+</html>

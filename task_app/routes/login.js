@@ -25,7 +25,14 @@ router.post('/login-post', (req, res) => {
     req.session.loginName = userName;
     req.session.save(() => {
       const redirectTo = req.body.redirect || '/';
-      res.redirect(redirectTo);
+
+      if (req.session.capacity_input == undefined) {
+        const encodedRedirect = encodeURIComponent(redirectTo);
+        res.redirect(`/capacity?redirect=${encodedRedirect}`);
+      } else {
+        res.redirect(redirectTo);
+      }
+      
     });
   } else {
     res.render('login',{

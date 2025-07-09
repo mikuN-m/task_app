@@ -14,6 +14,10 @@ body {
     text-decoration: none;
   }
 
+  img {
+    width: 100%;
+  }
+
   .form-box {
     width: 100%;
     padding: 3px 5px;
@@ -22,6 +26,7 @@ body {
       background-color: white;
       width: 100%;
       margin-bottom: 15px;
+      padding: 3px 10px;
     }
 
     .submit {
@@ -32,8 +37,23 @@ body {
     }
 
     .input,.submit {
-      border-radius: 20px;
+        border-radius: 20px;
+      }
     }
+
+  @keyframes slideUpFade {
+  from {
+    transform: translateY(30px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+    }
+  }
+
+  .float-up {
+    animation: slideUpFade 0.6s ease-out forwards;
   }
 
 }
@@ -86,3 +106,60 @@ header {
 }
 
 
+//体調
+#main-init {
+  width: 100%;
+  height: 100vh;
+  display: grid;
+  place-items: center;
+
+  #init-wrap {
+    width: 90%;
+    max-width: 600px;
+    padding: 10px 15px;
+
+    h4{
+      text-align: center;
+      margin-bottom: 10px;
+    }
+
+    .condition-box {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      margin: 20px 0;
+
+      div {
+        flex: 1;
+        text-align: center;
+      }
+
+      input[type="radio"] {
+        display: none;
+      }
+
+      .radio-img {
+        display: inline-block;
+        cursor: pointer;
+        transition: transform 0.2s, border 0.3s;
+
+        img {
+          width: 30%;
+          object-fit: cover;
+          border: 2px solid transparent;
+          border-radius: 8px;
+          transition: border 0.3s, opacity 0.3s;
+          opacity: 0.7;
+        }
+      }
+
+      input[type="radio"]:checked + .radio-img img {
+        border: 2px solid $color2;
+        opacity: 1;
+        box-shadow: 0 0 5px $color2;
+      }
+    }
+  }
+}
+
+//ホーム画面

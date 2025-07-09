@@ -7,6 +7,9 @@ body a {
   color: #1c1c1c;
   text-decoration: none;
 }
+body img {
+  width: 100%;
+}
 body .form-box {
   width: 100%;
   padding: 3px 5px;
@@ -15,6 +18,7 @@ body .form-box .input {
   background-color: white;
   width: 100%;
   margin-bottom: 15px;
+  padding: 3px 10px;
 }
 body .form-box .submit {
   background-color: #7a9b57;
@@ -24,6 +28,19 @@ body .form-box .submit {
 }
 body .form-box .input, body .form-box .submit {
   border-radius: 20px;
+}
+@keyframes slideUpFade {
+  from {
+    transform: translateY(30px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+body .float-up {
+  animation: slideUpFade 0.6s ease-out forwards;
 }
 
 header #header {
@@ -57,4 +74,52 @@ header #header {
 }
 #login-container #login-box #signIn {
   display: none;
+}
+
+#main-init {
+  width: 100%;
+  height: 100vh;
+  display: grid;
+  place-items: center;
+}
+#main-init #init-wrap {
+  width: 90%;
+  max-width: 600px;
+  padding: 10px 15px;
+}
+#main-init #init-wrap h4 {
+  text-align: center;
+  margin-bottom: 10px;
+}
+#main-init #init-wrap .condition-box {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  margin: 20px 0;
+}
+#main-init #init-wrap .condition-box div {
+  flex: 1;
+  text-align: center;
+}
+#main-init #init-wrap .condition-box input[type=radio] {
+  display: none;
+}
+#main-init #init-wrap .condition-box .radio-img {
+  display: inline-block;
+  cursor: pointer;
+  transition: transform 0.2s, border 0.3s;
+}
+#main-init #init-wrap .condition-box .radio-img img {
+  width: 30%;
+  -o-object-fit: cover;
+     object-fit: cover;
+  border: 2px solid transparent;
+  border-radius: 8px;
+  transition: border 0.3s, opacity 0.3s;
+  opacity: 0.7;
+}
+#main-init #init-wrap .condition-box input[type=radio]:checked + .radio-img img {
+  border: 2px solid #455e14;
+  opacity: 1;
+  box-shadow: 0 0 5px #455e14;
 }/*# sourceMappingURL=main.css.map */
