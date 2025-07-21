@@ -55,12 +55,14 @@ app.use((req,res,next) => {
     res.locals.loginName ='ゲスト';
     res.locals.id = '';
     res.locals.capacity = '';
+    res.locals.capacityMessage = '';
     
   } else {
     res.locals.login = true;
     res.locals.loginName = req.session.loginName;
     res.locals.id = req.session.userId;
     res.locals.capacity = req.session.capacity;
+    res.locals.capacityMessage = req.session.capacityMessage;
   }
 
   next();

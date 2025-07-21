@@ -4,47 +4,52 @@ const db = require('../models/dbModel');
 const requireLogin = require('../middlewares/auth');
 
 router.get('/',requireLogin,(req,res)=>{
-  const AllTask = db.prepare('select * from tasks where userId = ?').all(req.session.userId);
+  const task = db.prepare('select * from tasks where userId = ? and isFixed = ?').all(req.session.userId,0);
+  const fixedTask = db.prepare('select * from tasks where userId = ? and isFixed = ?').all(req.session.userId,1);
 
   res.render('task',{
-    errMsg:null,
-    task: AllTask
+    task: task,
+    fixedTask: fixedTask
   });
 });
 
 router.post('/task-add',(req,res) => {
-  const userId = req.session.userId;  
-  const fatigueLevel = parseInt(req.body.fatigueLevel, 10);
-  const taskName = req.body.taskName;
-  const category = req.body.category;
-  const dueDate = req.body.dueDate;
-  const dueTime = req.body.dueTime;
-  const memo = req.body.memo;
+  const {
+    taskName,
+    category,
+    priority,
+    fatigue,
+    memo
+  } = req.body;
 
-  db.prepare(`
-    INSERT INTO tasks (
-      userId, fatigueLevel, taskName, category, dueDate, dueTime, memo
-    ) VALUES (?, ?, ?, ?, ?, ?, ?)
-  `).run(userId, fatigueLevel, taskName, category, dueDate, dueTime, memo);
+  const stmt = db.prepare(`
+    INSERT INTO tasks (userId, name, fatigue, isFixed, priority, category, memo)
+    VALUES (?, ?, ?, ?, ?, ?, ?)
+  `);
+
+  stmt.run(req.session.userId, taskName, fatigue, 0, priority, category, memo);
+
+  res.redirect('/task');
+});
+
+router.post('/task-Fixed-add',(req,res) => {
+  const {
+    taskName,
+    category,
+    priority,
+    fatigue,
+    memo
+  } = req.body;
+
+  const stmt = db.prepare(`
+    INSERT INTO tasks (userId, name, fatigue, isFixed, priority, category, memo)
+    VALUES (?, ?, ?, ?, ?, ?, ?)
+  `);
+
+  stmt.run(req.session.userId, taskName, fatigue, 1, priority, category, memo);
 
   res.redirect('/task');
 });
 
-router.post('/task-delete', (req,res) => {
-  const selectTask = req.body.selectTask;
-  console.log(req.body.selectTask);
-  if (!selectTask) {
-    return res.redirect('/task');
-  }
-
-  const tasks = Array.isArray(selectTask) ? selectTask : [selectTask];
-
-  if (tasks.length > 0) {
-    const placeholders = tasks.map(() => '?').join(',');
-    db.prepare(`DELETE FROM tasks WHERE id IN (${placeholders})`).run(...tasks);
-  }
-
-  res.redirect('/task');
-});
 
 module.exports = router;

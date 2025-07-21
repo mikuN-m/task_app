@@ -27,14 +27,18 @@ db.prepare(`
   CREATE TABLE IF NOT EXISTS tasks (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     userId INTEGER NOT NULL,
-    fatigueLevel INTEGER NOT NULL,
-    taskName TEXT NOT NULL,
+    name TEXT NOT NULL,
+    fatigue INTEGER NOT NULL CHECK(fatigue BETWEEN 1 AND 3),
+    isFixed INTEGER NOT NULL DEFAULT 0 CHECK(isFixed IN (0, 1)),
+    priority INTEGER NOT NULL CHECK(priority BETWEEN 1 AND 3),
     category TEXT NOT NULL,
-    dueDate TEXT NOT NULL,
-    dueTime TEXT,
     memo TEXT
   )
 `).run();
+
+// isFixed 0=可変 1=固定
+// fatigue 疲労度
+// priority 優先度
 
 module.exports = db;
 

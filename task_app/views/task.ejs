@@ -5,120 +5,141 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
   <link rel="stylesheet" href="https://unpkg.com/ress/dist/ress.min.css">
-  <link rel="stylesheet" href="stylesheets/style.css">
+  <link rel="stylesheet" href="stylesheets/main.css">
 </head>
 <body>
 
-  <%- include('./header') %>
+  <div class="float-up">
+    
+    <div id="task-all">
+      <!-- タブメニュー -->
+      <div class="tab-menu">
+        <button class="tab-button active" onclick="switchTab('tab1')">タスク</button>
+        <button class="tab-button" onclick="switchTab('tab2')">固定タスク</button>
+      </div>
+  
+      <!-- タブ1: タスク -->
+      <div class="tab-content" id="tab1" style="display: block;">
+        <button id="js-add-btn-1">追加</button>
+        
+        <% if(task.length > 0) { %>
+          <% for (let i=0; i < task.length; i++) { %>
 
-  <main>
-
-    <h1>タスク</h1>
-
-    <p><%= errMsg %></p>
-
-    <% if (locals.login) { %>
-      <button id="js-add-btn">追加</button>
-      <button id="js-delete-btn">削除</button>
-
-      
-      <!-- 一覧 -->
-      <div id="task-all">
-        <% if (task && task.length > 0) { %>
-          <% for(let i = 0; i < task.length; i++) { %>
-
-            <div class="all-task-box">
-              <h3><%= task[i].taskName %></h3>
-              <p>カテゴリー: <%= task[i].category %></p>
-              <p>期限: <%= task[i].dueDate %>
-                <% if (task[i].dueTime) { %> <%= task[i].dueTime %> <% } %>
+            <div class="task">
+              <p>
+                <%= task[i].name %>|
+                <%= task[i].category %>|
+                優先度：<%= task[i].priority %>|
+                疲労度：<%= task[i].fatigue %>
               </p>
-              <p>疲労度: <%= task[i].fatigueLevel %></p>
-              <% if (task[i].memo) { %>
-                <p>メモ: <%= task[i].memo %></p>
-              <% } %>
             </div>
 
           <% } %>
-        <% } else { %>
-
-          <p>タスクがありません。</p>
-
         <% } %>
       </div>
+  
+      <!-- タブ2: 固定タスク -->
+      <div class="tab-content" id="tab2" style="display: none;">
+        <button id="js-add-btn-2">追加</button>
+        
+        <% if(fixedTask.length > 0) { %>
+          <% for (let i=0; i < fixedTask.length; i++) { %>
 
+            <div class="task">
+              <p>
+                <%= fixedTask[i].name %>|
+                <%= fixedTask[i].category %>|
+                優先度：<%= fixedTask[i].priority %>|
+                疲労度：<%= fixedTask[i].fatigue %>
+              </p>
+            </div>
 
-
-
-      <!-- 削除 -->
-      <div id="task-delete">
-        <button id="task-delete-hidden">取り消し</button>
-        <% if (task && task.length > 0) { %>
-          <form method="post" action="/task/task-delete">
-            <% for(let i = 0; i < task.length; i++) { %>
-
-              <div class="all-task-box">
-                  <input type="checkbox" name="selectTask[]" value="<%= task[i].id %>">
-                  <h3><%= task[i].taskName %></h3>
-                  <p>カテゴリー: <%= task[i].category %></p>
-                  <p>期限: <%= task[i].dueDate %>
-                    <% if (task[i].dueTime) { %> <%= task[i].dueTime %> <% } %>
-                  </p>
-                  <p>疲労度: <%= task[i].fatigueLevel %></p>
-                  <% if (task[i].memo) { %>
-                    <p>メモ: <%= task[i].memo %></p>
-                  <% } %>
-              </div>
-
-            <% } %>
-            <input type="submit" value="決定">
-          </form>
-        <% } else { %>
-
-          <p>タスクがありません。</p>
-
+          <% } %>
         <% } %>
       </div>
-    
-    <% } %>
+    </div>
 
 
 
+
+
+
+  <!-- タスク追加画面 -->
     <!-- タスク追加画面 -->
-    <div id="js-task-add-container">
+    <div id="js-task-add-container-1" class="hidden">
       <div id="task-add">
-        <div id="task-add-inner">
+        <div id="task-add-inner" class="float-up">
+          <button id="js-close-btn1">戻る</button>
+          
+          <p>タスク</p>
 
-          <button id="js-task-hidden">戻る</button>
-
-          <form method="post" action="/task/task-add">
+          <form class="form-box" method="post" action="/task/task-add">
             <label for="taskName">タスク名</label>
-            <input type="text" name="taskName" required><br>
+            <input class="input" type="text" name="taskName" required><br>
 
             <label for="category">カテゴリー</label>
-            <select id="category" name="category" required>
-              <option value="">-- 選択してください --</option>
-              <option value="work">仕事</option>
-              <option value="study">勉強</option>
-              <option value="house">家事</option>
-              <option value="health">健康</option>
-              <option value="other">その他</option>
+            <select class="input" id="category" name="category" required>
+              <option value="仕事">仕事</option>
+              <option value="勉強">勉強</option>
+              <option value="家事">家事</option>
+              <option value="健康">健康</option>
+              <option value="その他">その他</option>
             </select><br>
 
-            <label for="dueDate">期限（日付）</label>
-            <input type="date" name="dueDate" required><br>
+            <label for="priorityLevel">優先度:</label>
+            <output id="priorityOutput" value="1">1</output>
+            <input class="input" type="range" name="priority" id="priorityRange" min="1" max="3" value="1" oninput="priorityOutput.value = priorityRange.value"><br>
 
-            <label for="dueTime">期限（時間）<span style="font-size: 0.9em;">（任意）</span></label>
-            <input type="time" name="dueTime"><br>
-
-            <label for="fatigueLevel">疲労度</label>
-            <input type="range" name="fatigueLevel" id="fatigueRange" min="1" max="3" value="1" oninput="fatigueOutput.value = fatigueRange.value">
-            <output id="fatigueOutput">1</output><br>
+            <label for="fatigueLevel">疲労度:</label>
+            <output id="fatigueOutput" value="1">1</output>
+            <input class="input" type="range" name="fatigue" id="fatigueRange" min="1" max="3" value="1" oninput="fatigueOutput.value = fatigueRange.value"><br>
 
             <label for="memo">メモ</label>
-            <textarea name="memo"></textarea><br>
+            <textarea class="input" rows="4" name="memo"></textarea><br>
 
-            <input type="submit" value="決定">
+            <input class="submit" type="submit" value="決定">
+
+          </form>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- 固定タスク追加 -->
+    <div id="js-task-add-container-2" class="hidden">
+      <div id="task-add">
+        <div id="task-add-inner" class="float-up">
+
+          <button id="js-close-btn2">戻る</button>
+
+          <p>固定タスク</p>
+
+          <form class="form-box" method="post" action="/task/task-Fixed-add">
+            <label for="taskName">タスク名</label>
+            <input class="input" type="text" name="taskName" required><br>
+
+            <label for="category">カテゴリー</label>
+            <select class="input" id="category" name="category" required>
+              <option value="">-- 選択してください --</option>
+              <option value="仕事">仕事</option>
+              <option value="勉強">勉強</option>
+              <option value="家事">家事</option>
+              <option value="健康">健康</option>
+              <option value="その他">その他</option>
+            </select><br>
+
+            <label for="priorityLevel">優先度:</label>
+            <output id="priorityOutput" value="1">1</output>
+            <input class="input" type="range" name="priority" id="priorityRange" min="1" max="3" value="1" oninput="priorityOutput.value = priorityRange.value"><br>
+
+            <label for="fatigueLevel">疲労度:</label>
+            <output id="fatigueOutput" value="1">1</output>
+            <input class="input" type="range" name="fatigue" id="fatigueRange" min="1" max="3" value="1" oninput="fatigueOutput.value = fatigueRange.value"><br>
+
+            <label for="memo">メモ</label>
+            <textarea class="input" rows="4" name="memo"></textarea><br>
+
+            <input class="submit" type="submit" value="決定">
 
           </form>
 
@@ -128,6 +149,6 @@
 
   </main>
   
-  <script src="javascripts/main.js"></script>
+  <script src="javascripts/task.js"></script>
 </body>
 </html>

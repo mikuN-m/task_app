@@ -40,7 +40,7 @@ body .form-box .input, body .form-box .submit {
   }
 }
 body .float-up {
-  animation: slideUpFade 0.6s ease-out forwards;
+  animation: slideUpFade 0.8s ease-out forwards;
 }
 
 header #header {
@@ -78,7 +78,7 @@ header #header {
 
 #main-init {
   width: 100%;
-  height: 100vh;
+  height: 98vh;
   display: grid;
   place-items: center;
 }
@@ -122,4 +122,62 @@ header #header {
   border: 2px solid #455e14;
   opacity: 1;
   box-shadow: 0 0 5px #455e14;
+}
+
+.tab-menu {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 1em;
+}
+.tab-menu .tab-button {
+  padding: 8px 16px;
+  border: none;
+  background: #eee;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+.tab-menu .tab-button.active {
+  background-color: #ccc;
+  font-weight: bold;
+}
+
+.tab-content {
+  display: none;
+}
+.tab-content.active {
+  display: block;
+}
+
+.all-task-box {
+  border: 1px solid #ccc;
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 4px;
+  background-color: #fafafa;
+}
+.all-task-box h3 {
+  margin-top: 0;
+}
+.all-task-box p {
+  margin: 4px 0;
+}
+
+.hidden {
+  display: none;
+}
+
+#task-add {
+  z-index: 5;
+  display: grid;
+  place-items: center;
+  background-color: rgba(28, 28, 28, 0.7764705882);
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 100vh;
+}
+#task-add #task-add-inner {
+  background-color: #e5eeda;
+  padding: 10px;
+  border-radius: 20px;
 }/*# sourceMappingURL=main.css.map */
