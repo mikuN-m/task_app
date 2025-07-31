@@ -12,6 +12,7 @@ const taskRouter = require('./routes/task');
 const loginRouter = require('./routes/login');
 const logoutRouter = require('./routes/logout');
 const capacityRouter = require('./routes/capacity');
+const task_adjustRouter = require('./routes/task_adjust');
 
 const app = express();
 
@@ -73,6 +74,7 @@ app.use('/task', taskRouter);
 app.use('/login', loginRouter);
 app.use('/logout', logoutRouter);
 app.use('/capacity', capacityRouter);
+app.use('/task_adjust', task_adjustRouter);
 
 
 // catch 404 and forward to error handler

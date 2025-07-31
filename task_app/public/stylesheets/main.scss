@@ -164,6 +164,39 @@ header {
 }
 
 //ホーム画面
+#index {
+  .capa-mes {
+    h2 {
+      text-align: center;
+      margin: 50px auto;
+    }
+  }
+
+  .task-list {
+    width: 90%;
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 10px 15px;
+    border-radius: 8px;
+    background-color: $color4;
+    height: 300px; // ← 追加：高さを指定
+    overflow-y: auto; // ← 追加：縦スクロールを有効化
+    border: #1c1c1c 1px solid;
+    ol {
+      list-style-type: none;
+      padding: 0;
+
+      li {
+        padding: 10px;
+        border-bottom: 1px solid $color2;
+
+        &:last-child {
+          border-bottom: none;
+        }
+      }
+    }
+  }
+}
 
 
 /// タスク画面

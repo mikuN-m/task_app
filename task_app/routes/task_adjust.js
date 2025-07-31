@@ -1,17 +1,18 @@
 const express = require('express');
 const router = express.Router();
 const db = require('../models/dbModel');
-const requireLogin = require('../middlewares/auth');
 
-router.get('/',requireLogin,(req,res)=>{
+router.get('/',(req,res)=>{
   const tasks = db.prepare('select * from tasks where userId = ?').all(req.session.userId);
   const cap = req.session.capacity;
 
-  
+  const buildTask = buildTaskPlan(tasks, cap);
+
+  res.json(buildTask)
 });
 
 /**
- * タスク構成を作る関数
+ * タスク構成を作る関数（疲労度をバランスよく入れるバージョン）
  * @param {Array} tasks - ユーザーの全タスク
  * @param {number} capacity - 今日のキャパシティ
  * @returns {Array} - 今日のタスクリスト
@@ -24,7 +25,7 @@ function buildTaskPlan(tasks, capacity) {
   const fixedTasks = tasks.filter(task => task.isFixed);
   for (const task of fixedTasks) {
     result.push(task);
-    remainingCapacity -= task.fatigue;
+    remainingCapacity -= task.duration;
   }
 
   // 2. 可変タスクをfatigueLevelごとにバスケットに分ける
@@ -59,9 +60,9 @@ function buildTaskPlan(tasks, capacity) {
       // バスケットから最優先のタスクを取る
       const candidate = bucket[0];
 
-      if (candidate.fatigue <= remainingCapacity) {
+      if (candidate.duration <= remainingCapacity) {
         result.push(candidate);
-        remainingCapacity -= candidate.fatigue;
+        remainingCapacity -= candidate.duration;
         bucket.shift();  // 取り除く
         exhausted = false;
       }
@@ -70,3 +71,6 @@ function buildTaskPlan(tasks, capacity) {
 
   return result;
 }
+
+
+module.exports = router;

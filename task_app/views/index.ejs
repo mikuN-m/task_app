@@ -5,23 +5,32 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
   <link rel="stylesheet" href="https://unpkg.com/ress/dist/ress.min.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
   <link rel="stylesheet" href="stylesheets/main.css">
 </head>
 <body>
-  <div class="float-up">
+  <div class="float-up" id="index">
 
-    <div>
+    <div class="capa-mes">
       <h2><%= locals.capacityMessage %></h2>
     </div>
 
     <div>
-      <p id="userList"></p>
-      <a href="/task_adjust">タスク構成</a>
+      <button type="button" id="loadBtn">タスク構成</button>
     </div>
 
+    <div class="task-list">
+      <ol id="planList"></ol>
+    </div>
+
+
     <div>
-      <a href="/task">タスク</a>
-      <a href="/capacity">体調入力</a>
+      <a href="/task">
+        <button type="button" class="btn btn-outline-success">タスク</button>
+      </a>
+      <a href="/capacity">
+        <button type="button" class="btn btn-outline-success">体調入力</button>
+      </a>
     </div>
 
   </div>

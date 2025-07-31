@@ -1,14 +1,14 @@
 //タスク構築
 document.getElementById('loadBtn').addEventListener('click', () => {
-  console.log('l');
-  // fetch('/task_adjust')
-  //   .then(res => res.json())
-  //   .then(users => {
-  //     const ul = document.getElementById('userList');
-  //     console.log(users);
-  //   })
-  //   .catch(err => {
-  //     alert('データの取得に失敗しました');
-  //     console.error(err);
-  //   });
+  fetch('/task_adjust')
+    .then(res => res.json())
+    .then(plan => {
+      const ul = document.getElementById('planList');
+      ul.innerHTML = '';
+      plan.forEach(task => {
+        const li = document.createElement('li');
+        li.textContent = `${task.name}`;
+        ul.appendChild(li);
+    });
+  });
 });
